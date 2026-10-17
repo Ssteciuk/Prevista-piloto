@@ -1,0 +1,156 @@
+@import "tailwindcss";
+@import "@fontsource-variable/manrope";
+@import "lenis/dist/lenis.css";
+
+/* Paleta: hormigón cálido de noche, texto hueso y un acento arena. Se cambia por proyecto acá. */
+@theme {
+  --font-sans: "Manrope Variable", ui-sans-serif, system-ui, sans-serif;
+  --color-bg: #131209;
+  --color-panel: #1f1f1f;
+  --color-hueso: #f2efe9;
+  --color-arena: #d4b08c;
+  --ease-fluid: cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+@layer base {
+  :root {
+    color-scheme: dark;
+  }
+
+  html {
+    background-color: var(--color-bg);
+    color: var(--color-hueso);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    font-family: var(--font-sans);
+    background-color: var(--color-bg);
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+  }
+
+  p,
+  li,
+  dd {
+    text-wrap: pretty;
+  }
+
+  ::selection {
+    background-color: var(--color-arena);
+    color: var(--color-bg);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-arena);
+    outline-offset: 4px;
+  }
+}
+
+@layer components {
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-height: 40px;
+    border-radius: 9999px;
+    padding: 8px 16px;
+    font-size: var(--text-base);
+    line-height: var(--text-base--line-height);
+    font-weight: 600;
+    transition:
+      background-color 700ms var(--ease-fluid),
+      color 700ms var(--ease-fluid),
+      transform 700ms var(--ease-fluid);
+  }
+
+  .btn:active {
+    transform: scale(0.98);
+  }
+
+  .btn-sm {
+    min-height: 36px;
+    padding: 8px 12px;
+    font-size: var(--text-sm);
+    line-height: var(--text-sm--line-height);
+  }
+
+  .btn-primary {
+    background-color: var(--color-arena);
+    color: var(--color-bg);
+  }
+
+  .btn-primary:hover {
+    background-color: var(--color-hueso);
+  }
+
+  .btn-ghost {
+    background-color: color-mix(in oklab, var(--color-hueso) 8%, transparent);
+    color: var(--color-hueso);
+    box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--color-hueso) 20%, transparent);
+  }
+
+  .btn-ghost:hover {
+    background-color: color-mix(in oklab, var(--color-hueso) 16%, transparent);
+  }
+
+  .link {
+    text-decoration: underline;
+    text-decoration-color: color-mix(in oklab, currentColor 40%, transparent);
+    text-underline-offset: 4px;
+    transition: text-decoration-color 700ms var(--ease-fluid);
+  }
+
+  .link:hover {
+    text-decoration-color: currentColor;
+  }
+
+  .eyebrow {
+    font-size: var(--text-xs);
+    line-height: var(--text-xs--line-height);
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-arena);
+  }
+
+  /* Titular del hero: degradé de texto blanco a gris (nunca en fondos). */
+  .titulo-hero {
+    background-image: linear-gradient(to right, #ffffff, #9b9b9b);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+  }
+}
+
+/* Apariciones al entrar en pantalla (IntersectionObserver en motion.ts). */
+.js [data-reveal] {
+  opacity: 0;
+  filter: blur(12px);
+  transform: translateY(4rem);
+  transition:
+    opacity 900ms var(--ease-fluid),
+    filter 900ms var(--ease-fluid),
+    transform 900ms var(--ease-fluid);
+}
+
+.js [data-reveal].is-in {
+  opacity: 1;
+  filter: none;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .js [data-reveal] {
+    filter: none;
+    transform: none;
+  }
+}

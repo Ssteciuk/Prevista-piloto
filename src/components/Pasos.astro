@@ -1,0 +1,23 @@
+---
+import { pasos } from '../data/proyecto';
+---
+
+<section aria-labelledby="pasos-titulo" class="px-4 py-24 md:px-12 xl:px-24">
+  <div class="mx-auto max-w-6xl">
+    <div data-reveal class="max-w-[680px]">
+      <p class="eyebrow">Cómo comprar</p>
+      <h2 id="pasos-titulo" class="mt-4 text-4xl lg:text-5xl">Del recorrido al boleto en tres pasos</h2>
+    </div>
+    <ol class="mt-12 grid gap-8 md:grid-cols-3">
+      {
+        pasos.map((p, i) => (
+          <li data-reveal class="flex flex-col gap-2">
+            <span class="text-5xl font-semibold text-arena tabular-nums">{i + 1}</span>
+            <h3 class="mt-2 text-xl">{p.titulo}</h3>
+            <p class="text-base text-hueso/70">{p.texto}</p>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+</section>

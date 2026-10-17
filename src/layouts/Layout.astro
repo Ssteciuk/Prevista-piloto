@@ -1,0 +1,53 @@
+---
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { demo, proyecto } from '../data/proyecto';
+
+interface Props {
+  title: string;
+  description: string;
+  noindex?: boolean;
+}
+
+const { title, description, noindex = false } = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const primerPoster = new URL('/recorrido/tramo-1.webp', Astro.site);
+---
+
+<!doctype html>
+<html lang="es-AR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script is:inline>document.documentElement.classList.add('js');</script>
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="robots" content={noindex || demo ? 'noindex, follow' : 'index, follow, max-image-preview:large'} />
+    <meta name="theme-color" content="#131209" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    {!noindex && <link rel="canonical" href={canonical} />}
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="es_AR" />
+    <meta property="og:site_name" content={proyecto.nombre} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={primerPoster} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <slot name="head" />
+  </head>
+  <body class="min-h-svh overflow-x-clip">
+    <a href="#contenido" class="sr-only z-50 rounded-full bg-arena px-4 py-2 text-bg focus:not-sr-only focus:fixed focus:top-4 focus:left-4">
+      Saltar al contenido
+    </a>
+    <Header />
+    <main id="contenido" tabindex="-1" class="outline-none">
+      <slot />
+    </main>
+    <Footer />
+    <script>
+      import '../scripts/motion';
+    </script>
+  </body>
+</html>

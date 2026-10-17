@@ -1,0 +1,26 @@
+---
+import Icon from './Icon.astro';
+import { cercanias, contacto, proyecto } from '../data/proyecto';
+---
+
+<section id="ubicacion" class="scroll-mt-24 px-4 py-24 md:px-12 xl:px-24">
+  <div class="mx-auto grid max-w-6xl gap-12 lg:grid-cols-2">
+    <div data-reveal class="max-w-[680px]">
+      <p class="eyebrow">Ubicación</p>
+      <h2 class="mt-4 text-4xl lg:text-5xl">{proyecto.barrio}, a pasos de todo</h2>
+      <p class="mt-4 flex items-center gap-2 text-base text-hueso/70"><Icon name="mapPin" class="size-5 text-arena" /> {proyecto.direccion}</p>
+      <p class="mt-2 text-base text-hueso/70">{contacto.showroom}</p>
+      <a href={contacto.mapa} target="_blank" rel="noopener" class="btn btn-ghost mt-6">Ver en el mapa <Icon name="arrowUpRight" class="size-4" /></a>
+    </div>
+    <ul class="grid grid-cols-2 gap-4">
+      {
+        cercanias.map((c) => (
+          <li data-reveal class="flex flex-col gap-2 rounded-2xl bg-panel/60 p-6 ring-1 ring-hueso/10">
+            <span class="text-4xl font-semibold tabular-nums">{c.minutos}<span class="text-base text-hueso/60"> min a pie</span></span>
+            <span class="text-sm text-hueso/70">{c.lugar}</span>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>

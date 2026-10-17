@@ -1,0 +1,36 @@
+---
+import Icon from './Icon.astro';
+import { etapas, proyecto } from '../data/proyecto';
+
+const iconos = { hecho: 'check', 'en-curso': 'hardHat', proximo: 'circleDashed' } as const;
+const estados = { hecho: 'Terminada', 'en-curso': 'En curso', proximo: 'Próxima' } as const;
+---
+
+<section id="obra" class="scroll-mt-24 px-4 py-24 md:px-12 xl:px-24">
+  <div class="mx-auto grid max-w-6xl gap-12 lg:grid-cols-2">
+    <div data-reveal class="max-w-[680px]">
+      <p class="eyebrow">Avance de obra</p>
+      <h2 class="mt-4 text-4xl lg:text-5xl">La obra va al {proyecto.avance} %</h2>
+      <p class="mt-4 text-base text-hueso/70 lg:text-lg">Entrega estimada: {proyecto.entrega.toLowerCase()}. Actualizamos el avance todos los meses con fotos de la dirección de obra.</p>
+      <div class="mt-8 h-2 w-full overflow-hidden rounded-full bg-hueso/10" role="progressbar" aria-valuenow={proyecto.avance} aria-valuemin="0" aria-valuemax="100" aria-label="Avance de obra">
+        <div data-avance={proyecto.avance} class="h-full origin-left rounded-full bg-arena" style={`transform: scaleX(${proyecto.avance / 100})`}></div>
+      </div>
+    </div>
+    <ol class="flex flex-col gap-4">
+      {
+        etapas.map((e) => (
+          <li data-reveal class:list={['flex items-center gap-4 rounded-2xl p-4 ring-1', e.estado === 'en-curso' ? 'bg-panel ring-arena/60' : 'ring-hueso/10']}>
+            <span class:list={['grid size-10 shrink-0 place-items-center rounded-full', e.estado === 'proximo' ? 'bg-hueso/5 text-hueso/50' : 'bg-arena text-bg']}>
+              <Icon name={iconos[e.estado]} class="size-5" />
+            </span>
+            <div class="flex flex-1 flex-col">
+              <span class="text-base font-semibold">{e.titulo}</span>
+              <span class="text-sm text-hueso/60">{e.fecha}</span>
+            </div>
+            <span class="text-xs text-hueso/60">{estados[e.estado]}</span>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+</section>

@@ -1,0 +1,70 @@
+---
+import Icon from './Icon.astro';
+import { contacto, proyecto, unidades } from '../data/proyecto';
+
+const campo = 'w-full rounded-xl bg-bg px-4 py-3 text-base ring-1 ring-hueso/15 placeholder:text-hueso/40 focus:ring-arena focus:outline-none';
+---
+
+<section id="contacto" class="scroll-mt-24 px-4 py-24 md:px-12 xl:px-24">
+  <div class="mx-auto grid max-w-6xl gap-12 rounded-3xl bg-panel p-6 ring-1 ring-hueso/10 md:p-12 lg:grid-cols-2">
+    <div data-reveal class="max-w-[680px]">
+      <p class="eyebrow">Showroom</p>
+      <h2 class="mt-4 text-4xl lg:text-5xl">Vení a ver las terminaciones en persona</h2>
+      <p class="mt-4 text-base text-hueso/70 lg:text-lg">
+        Dejanos tus datos y te escribimos por WhatsApp para coordinar día y horario. {contacto.showroom}.
+      </p>
+      <ul class="mt-8 flex flex-col gap-4 text-sm">
+        <li><a class="link flex items-center gap-2" href={`mailto:${contacto.email}`}><Icon name="envelope" class="size-5 text-arena" /> {contacto.email}</a></li>
+        <li><a class="link flex items-center gap-2" href={`tel:+${contacto.whatsapp}`}><Icon name="phone" class="size-5 text-arena" /> {contacto.telefonoVisible}</a></li>
+      </ul>
+    </div>
+
+    <form data-form novalidate data-whatsapp={contacto.whatsapp} data-proyecto={proyecto.nombre} class="flex flex-col gap-4">
+      <div class="flex flex-col gap-2">
+        <label for="nombre" class="text-sm font-semibold">Nombre</label>
+        <input id="nombre" name="nombre" required autocomplete="name" class={campo} placeholder="Martina Quiroga" />
+        <p class="error hidden text-sm text-arena" data-error-for="nombre">Escribí tu nombre.</p>
+      </div>
+      <div class="flex flex-col gap-2">
+        <label for="email" class="text-sm font-semibold">Email</label>
+        <input id="email" name="email" type="email" required autocomplete="email" class={campo} placeholder="martina@correo.com" />
+        <p class="error hidden text-sm text-arena" data-error-for="email">Revisá el email, parece incompleto.</p>
+      </div>
+      <div class="flex flex-col gap-2">
+        <label for="unidad" class="text-sm font-semibold">Qué unidad te interesa</label>
+        <select id="unidad" name="unidad" class={campo}>
+          {unidades.map((u) => <option selected={u.destacada}>{u.tipo}</option>)}
+          <option>Todavía no sé</option>
+        </select>
+      </div>
+      <button type="submit" class="btn btn-primary mt-2">
+        <Icon name="whatsapp" class="size-5" /> Agendar visita al showroom
+      </button>
+      <p class="text-xs text-hueso/50">Se abre WhatsApp con tu mensaje listo para enviar. No guardamos datos en esta web.</p>
+    </form>
+  </div>
+</section>
+
+<script>
+  const form = document.querySelector<HTMLFormElement>('[data-form]');
+  form?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const datos = new FormData(form);
+    const nombre = String(datos.get('nombre') ?? '').trim();
+    const email = String(datos.get('email') ?? '').trim();
+    const errores = { nombre: !nombre, email: !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email) };
+
+    for (const [campo, mal] of Object.entries(errores)) {
+      form.querySelector(`[data-error-for="${campo}"]`)?.classList.toggle('hidden', !mal);
+      form.querySelector(`[name="${campo}"]`)?.setAttribute('aria-invalid', String(mal));
+    }
+    const primero = Object.entries(errores).find(([, mal]) => mal);
+    if (primero) {
+      form.querySelector<HTMLElement>(`[name="${primero[0]}"]`)?.focus();
+      return;
+    }
+
+    const texto = `Hola, soy ${nombre} (${email}). Quiero visitar el showroom de ${form.dataset.proyecto}. Me interesa: ${datos.get('unidad')}.`;
+    window.open(`https://wa.me/${form.dataset.whatsapp}?text=${encodeURIComponent(texto)}`, '_blank', 'noopener');
+  });
+</script>

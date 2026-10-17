@@ -1,0 +1,38 @@
+---
+import Icon from './Icon.astro';
+import { faq } from '../data/proyecto';
+---
+
+<section id="preguntas" class="scroll-mt-24 px-4 py-24 md:px-12 xl:px-24">
+  <div class="mx-auto max-w-3xl">
+    <div data-reveal>
+      <p class="eyebrow">Preguntas frecuentes</p>
+      <h2 class="mt-4 text-4xl lg:text-5xl">Lo que nos preguntan antes de reservar</h2>
+    </div>
+    <div class="mt-12 flex flex-col gap-2">
+      {
+        faq.map((f) => (
+          <details data-reveal class="faq group rounded-2xl bg-panel/60 ring-1 ring-hueso/10">
+            <summary class="flex cursor-pointer list-none items-center justify-between gap-4 p-6 text-lg font-semibold">
+              {f.p}
+              <Icon name="plus" class="faq-icono size-5 shrink-0 text-arena" />
+            </summary>
+            <p class="px-6 pb-6 text-base text-hueso/70">{f.r}</p>
+          </details>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .faq summary::-webkit-details-marker {
+    display: none;
+  }
+  .faq :global(.faq-icono) {
+    transition: transform 700ms var(--ease-fluid);
+  }
+  .faq[open] :global(.faq-icono) {
+    transform: rotate(45deg);
+  }
+</style>

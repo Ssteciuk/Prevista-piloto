@@ -1,0 +1,42 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Recorrido from '../components/Recorrido.astro';
+import Frase from '../components/Frase.astro';
+import Unidades from '../components/Unidades.astro';
+import Terminaciones from '../components/Terminaciones.astro';
+import Obra from '../components/Obra.astro';
+import Pasos from '../components/Pasos.astro';
+import Ubicacion from '../components/Ubicacion.astro';
+import Faq from '../components/Faq.astro';
+import Contacto from '../components/Contacto.astro';
+import { faq, proyecto, seo } from '../data/proyecto';
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Residence',
+      name: proyecto.nombre,
+      address: { '@type': 'PostalAddress', streetAddress: proyecto.direccion, addressLocality: proyecto.ciudad, addressCountry: 'AR' },
+    },
+    {
+      '@type': 'FAQPage',
+      mainEntity: faq.map((f) => ({ '@type': 'Question', name: f.p, acceptedAnswer: { '@type': 'Answer', text: f.r } })),
+    },
+  ],
+};
+---
+
+<Layout title={seo.titulo} description={seo.descripcion}>
+  <link slot="head" rel="preload" as="image" href="/recorrido/tramo-1.webp" fetchpriority="high" />
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(schema)} />
+  <Recorrido />
+  <Frase />
+  <Unidades />
+  <Terminaciones />
+  <Obra />
+  <Pasos />
+  <Ubicacion />
+  <Faq />
+  <Contacto />
+</Layout>

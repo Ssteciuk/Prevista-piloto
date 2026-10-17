@@ -1,0 +1,13 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { proyecto } from '../data/proyecto';
+---
+
+<Layout title={`Página no encontrada · ${proyecto.nombre}`} description="Esta página no existe." noindex>
+  <section class="flex min-h-svh flex-col items-start justify-center px-4 md:px-12 xl:px-24">
+    <p class="eyebrow">Error 404</p>
+    <h1 class="titulo-hero mt-4 max-w-[680px] text-5xl lg:text-6xl">Este ambiente todavía no está en los planos</h1>
+    <p class="mt-4 max-w-[680px] text-lg text-hueso/70">La página que buscás no existe o cambió de lugar.</p>
+    <a href="/" class="btn btn-primary mt-8">Volver al recorrido</a>
+  </section>
+</Layout>

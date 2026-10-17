@@ -1,0 +1,113 @@
+---
+import { demo, proyecto } from '../data/proyecto';
+
+const links = [
+  { href: '/#inicio', label: 'Recorrido', spy: '#recorrido' },
+  { href: '/#unidades', label: 'Unidades', spy: '#unidades' },
+  { href: '/#obra', label: 'Avance de obra', spy: '#obra' },
+  { href: '/#ubicacion', label: 'Ubicación', spy: '#ubicacion' },
+  { href: '/#preguntas', label: 'Preguntas', spy: '#preguntas' },
+];
+---
+
+<header class="pointer-events-none fixed inset-x-0 top-0 z-40 flex flex-col items-center gap-2 px-4 pt-4 md:pt-6">
+  {
+    demo && (
+      <p class="pointer-events-auto rounded-full bg-arena px-3 py-1 text-xs font-semibold text-bg">
+        Proyecto de ejemplo: nombre, datos y precios son ficticios
+      </p>
+    )
+  }
+  <nav
+    aria-label="Principal"
+    data-nav
+    class="pointer-events-auto flex w-max max-w-full items-center gap-2 rounded-full bg-bg/50 p-2 ring-1 ring-hueso/15 backdrop-blur-xl"
+  >
+    <a href="/" class="flex items-center gap-2 rounded-full px-3 py-1 text-sm font-semibold">
+      <svg viewBox="0 0 32 32" class="size-5" aria-hidden="true"><path d="M8 24V12l8-5 8 5v12h-5v-7h-6v7z" fill="currentColor"></path></svg>
+      <span>{proyecto.nombre}</span>
+    </a>
+    <ul class="hidden items-center lg:flex">
+      {
+        links.map((link) => (
+          <li>
+            <a href={link.href} data-spy={link.spy} class="nav-link rounded-full px-3 py-2 text-sm text-hueso/70">
+              {link.label}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+    <a href="/#contacto" class="btn btn-primary btn-sm">Agendar visita</a>
+    <button
+      type="button"
+      data-menu-toggle
+      aria-expanded="false"
+      aria-controls="menu-movil"
+      class="relative grid size-9 place-items-center rounded-full lg:hidden"
+    >
+      <span class="sr-only">Abrir menú</span>
+      <span aria-hidden="true" class="burger absolute h-px w-4 -translate-y-1 bg-hueso"></span>
+      <span aria-hidden="true" class="burger absolute h-px w-4 translate-y-1 bg-hueso"></span>
+    </button>
+  </nav>
+
+  <div id="menu-movil" data-menu class="menu pointer-events-auto fixed inset-0 -z-10 flex flex-col justify-center bg-black/80 px-8 backdrop-blur-3xl lg:hidden">
+    <ul class="flex flex-col gap-4">
+      {
+        links.map((link) => (
+          <li class="menu-item">
+            <a href={link.href} class="text-3xl font-semibold">{link.label}</a>
+          </li>
+        ))
+      }
+      <li class="menu-item mt-6"><a href="/#contacto" class="btn btn-primary">Agendar visita al showroom</a></li>
+    </ul>
+  </div>
+</header>
+
+<style>
+  .nav-link {
+    transition: color 700ms var(--ease-fluid), background-color 700ms var(--ease-fluid);
+  }
+  .nav-link:hover,
+  .nav-link[aria-current='true'] {
+    color: var(--color-hueso);
+    background-color: color-mix(in oklab, var(--color-hueso) 10%, transparent);
+  }
+
+  .burger {
+    transition: transform 700ms var(--ease-fluid);
+  }
+  [aria-expanded='true'] .burger:first-of-type {
+    transform: rotate(45deg);
+  }
+  [aria-expanded='true'] .burger:last-of-type {
+    transform: rotate(-45deg);
+  }
+
+  .menu {
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 700ms var(--ease-fluid), visibility 0s 700ms;
+  }
+  .menu.is-open {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 700ms var(--ease-fluid);
+  }
+  .menu-item {
+    opacity: 0;
+    transform: translateY(3rem);
+    transition: opacity 700ms var(--ease-fluid), transform 700ms var(--ease-fluid);
+  }
+  .menu.is-open .menu-item {
+    opacity: 1;
+    transform: none;
+  }
+  .menu.is-open .menu-item:nth-child(2) { transition-delay: 50ms; }
+  .menu.is-open .menu-item:nth-child(3) { transition-delay: 100ms; }
+  .menu.is-open .menu-item:nth-child(4) { transition-delay: 150ms; }
+  .menu.is-open .menu-item:nth-child(5) { transition-delay: 200ms; }
+  .menu.is-open .menu-item:nth-child(6) { transition-delay: 250ms; }
+</style>

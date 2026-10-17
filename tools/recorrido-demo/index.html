@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <title>Recorrido de demo</title>
+    <style>html, body { margin: 0; background: #111; } canvas { display: block; }</style>
+    <script type="importmap">
+      { "imports": { "three": "/node_modules/three/build/three.module.js", "three/addons/": "/node_modules/three/examples/jsm/" } }
+    </script>
+  </head>
+  <body>
+    <canvas id="c"></canvas>
+    <script type="module">
+      import { crearEscena, totalFrames, tiempos, paradas, FPS } from './escena.js';
+      const q = new URLSearchParams(location.search);
+      const w = Number(q.get('w') ?? 1280);
+      const h = Number(q.get('h') ?? 720);
+      const escena = crearEscena(document.getElementById('c'), w, h);
+      const canvas = document.getElementById('c');
+      // El script de render pide los fotogramas de a uno y los guarda como JPG.
+      window.recorrido = {
+        totalFrames, tiempos, paradas, FPS,
+        frame(n) {
+          escena.frame(n);
+          return canvas.toDataURL('image/jpeg', 0.94);
+        },
+      };
+      // Vista rápida en el navegador: ?t=7.5 muestra el segundo 7,5.
+      escena.frame(Math.round(Number(q.get('t') ?? 0) * FPS));
+      window.listo = true;
+    </script>
+  </body>
+</html>

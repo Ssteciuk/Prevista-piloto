@@ -1,0 +1,34 @@
+---
+import { frase } from '../data/proyecto';
+
+const texto = frase.join(' ');
+---
+
+<section aria-label="Cómo se hace el recorrido" class="px-4 py-24 md:px-12 xl:px-24">
+  <div class="mx-auto flex min-h-[60svh] max-w-[680px] items-center">
+    <p class="sr-only">{texto}</p>
+    <p data-palabras aria-hidden="true" class="text-4xl font-semibold tracking-tight text-balance lg:text-6xl">
+      {
+        frase.map((linea) => (
+          <span class="block">
+            {linea.split(' ').map((palabra) => (
+              <>
+                <span data-palabra class="palabra">{palabra}</span>{' '}
+              </>
+            ))}
+          </span>
+        ))
+      }
+    </p>
+  </div>
+</section>
+
+<style>
+  .palabra {
+    color: color-mix(in oklab, var(--color-hueso) 30%, transparent);
+    transition: color 700ms var(--ease-fluid);
+  }
+  .palabra:global(.is-lit) {
+    color: var(--color-hueso);
+  }
+</style>

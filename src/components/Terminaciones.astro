@@ -1,0 +1,24 @@
+---
+import Icon, { type IconName } from './Icon.astro';
+import { terminaciones } from '../data/proyecto';
+---
+
+<section aria-labelledby="terminaciones-titulo" class="px-4 py-24 md:px-12 xl:px-24">
+  <div class="mx-auto max-w-6xl">
+    <div data-reveal class="max-w-[680px]">
+      <p class="eyebrow">Terminaciones</p>
+      <h2 id="terminaciones-titulo" class="mt-4 text-4xl lg:text-5xl">Lo que se entrega, sin letra chica</h2>
+    </div>
+    <ul class="mt-12 grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
+      {
+        terminaciones.map((t) => (
+          <li data-reveal class="flex flex-col gap-2">
+            <Icon name={t.icono as IconName} class="size-8 text-arena" />
+            <h3 class="mt-2 text-xl">{t.titulo}</h3>
+            <p class="text-base text-hueso/70">{t.texto}</p>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>

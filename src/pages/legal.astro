@@ -1,0 +1,17 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { contacto, proyecto } from '../data/proyecto';
+---
+
+<Layout title={`Privacidad y condiciones · ${proyecto.nombre}`} description="Privacidad y condiciones de uso de la web." noindex>
+  <section class="mx-auto max-w-3xl px-4 pt-40 pb-24">
+    <p class="eyebrow">Legal</p>
+    <h1 class="mt-4 text-4xl">Privacidad y condiciones</h1>
+    <div class="mt-8 flex flex-col gap-4 text-base text-hueso/70">
+      <p>Esta web no guarda datos personales. El formulario de contacto arma un mensaje que se envía desde tu WhatsApp y solo lo recibe {proyecto.desarrolladora}.</p>
+      <p>Las imágenes, el recorrido en vídeo y el mobiliario son ilustrativos y no forman parte de la oferta. Las superficies son aproximadas y están sujetas a la medición final. Nada de lo publicado constituye una oferta vinculante.</p>
+      <p>Para pedir la baja de tus datos o hacer cualquier consulta escribí a <a class="link text-hueso" href={`mailto:${contacto.email}`}>{contacto.email}</a>.</p>
+    </div>
+    <a href="/" class="btn btn-ghost mt-8">Volver al inicio</a>
+  </section>
+</Layout>
