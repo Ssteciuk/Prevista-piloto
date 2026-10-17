@@ -5,7 +5,7 @@
 #   pnpm recorrido media/master.mp4 "0 6.5 13 21 27"
 #
 # Cada parada tiene su tramo: va desde su segundo hasta el de la siguiente. El último llega al final del vídeo.
-# Sale en public/video/tramo-N.mp4 y public/recorrido/tramo-N.webp (primer fotograma, se ve mientras carga el vídeo).
+# Sale en public/video/tramo-N.mp4 (más tramo-N.webm de respaldo para navegadores sin H.264) y public/recorrido/tramo-N.webp (primer fotograma, se ve mientras carga el vídeo).
 #
 # El master puede venir de Lumion, Twinmotion, D5, Enscape, un drone, una cámara con gimbal o de clips hechos con IA
 # ya unidos. Lo único que importa es que sea UN plano continuo: la cámara no corta entre parada y parada.
@@ -19,7 +19,7 @@ raiz=$(cd "$(dirname "$0")/.." && pwd)
 videos="$raiz/public/video"
 posters="$raiz/public/recorrido"
 mkdir -p "$videos" "$posters"
-rm -f "$videos"/tramo-*.mp4 "$posters"/tramo-*.webp
+rm -f "$videos"/tramo-*.mp4 "$videos"/tramo-*.webm "$posters"/tramo-*.webp
 
 duracion=$(ffprobe -v error -show_entries format=duration -of default=nw=1:nk=1 "$master")
 n=${#cortes[@]}
@@ -39,6 +39,10 @@ for ((i = 0; i < n; i++)); do
     -color_primaries bt709 -color_trc iec61966-2-1 -colorspace bt709 -color_range tv \
     -movflags +faststart+write_colr "$out"
 
+  # Respaldo VP9 para los navegadores que no traen H.264 (algunos Chromium de Linux). Mismo GOP corto.
+  ffmpeg -v error -y -i "$out" -an -c:v libvpx-vp9 -b:v 0 -crf 38 -row-mt 1 -deadline good -cpu-used 4 \
+    -g 6 -keyint_min 6 -pix_fmt yuv420p "${out%.mp4}.webm"
+
   # El póster sale del propio tramo ya codificado, así coincide píxel a píxel con su primer fotograma.
   ffmpeg -v error -y -i "$out" -frames:v 1 \
     -vf "scale=in_color_matrix=bt709:in_range=tv:out_range=pc,format=rgb24" \
@@ -46,5 +50,5 @@ for ((i = 0; i < n; i++)); do
 done
 
 echo
-du -h "$videos"/tramo-*.mp4 "$posters"/tramo-*.webp
+du -h "$videos"/tramo-*.mp4 "$videos"/tramo-*.webm "$posters"/tramo-*.webp
 echo "Listo: $n tramos. Revisa que src/data/proyecto.ts tenga $n paradas en recorrido.paradas."

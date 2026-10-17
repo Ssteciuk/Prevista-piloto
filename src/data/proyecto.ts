@@ -51,6 +51,7 @@ export const recorrido = {
   ].map((parada, i) => ({
     ...parada,
     clip: `/video/tramo-${i + 1}.mp4`,
+    clipWebm: `/video/tramo-${i + 1}.webm`,
     poster: `/recorrido/tramo-${i + 1}.webp`,
   })),
 };

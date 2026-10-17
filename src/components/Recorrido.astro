@@ -37,6 +37,7 @@ const whatsapp = `https://wa.me/${contacto.whatsapp}?text=${encodeURIComponent(`
             <video
               data-tramo
               data-src={parada.clip}
+              data-src-webm={parada.clipWebm}
               muted
               playsinline
               preload="none"
@@ -54,7 +55,7 @@ const whatsapp = `https://wa.me/${contacto.whatsapp}?text=${encodeURIComponent(`
     <div aria-hidden="true" class="absolute inset-x-0 top-0 h-40 bg-linear-to-b from-bg/60 to-transparent"></div>
     <div
       aria-hidden="true"
-      class="absolute inset-0 bg-linear-to-t from-bg from-10% via-bg/50 via-45% to-transparent to-75% lg:bg-linear-to-r lg:from-bg/85 lg:via-bg/35 lg:via-35% lg:to-transparent lg:to-65%"
+      class="absolute inset-0 bg-linear-to-t from-bg from-10% via-bg/50 via-45% to-transparent to-75% lg:bg-linear-to-r lg:from-bg/90 lg:via-bg/50 lg:via-35% lg:to-transparent lg:to-65%"
     >
     </div>
 
@@ -95,7 +96,7 @@ const whatsapp = `https://wa.me/${contacto.whatsapp}?text=${encodeURIComponent(`
         </span>
       </h1>
       <p class="mt-4 max-w-[680px] text-base text-hueso/80 lg:text-lg">
-        Unidades de 2 a 4 ambientes en pozo, con balcón y amenities. Bajá y caminá la {recorrido.unidad.toLowerCase()} ambiente por ambiente.
+        Unidades de 2 a 4 ambientes en pozo, con balcón y amenities. Bajá con el scroll y caminá un 3 ambientes de punta a punta.
       </p>
       <div class="mt-6 flex flex-wrap gap-2">
         <a href="#contacto" class="btn btn-primary">Agendar visita al showroom</a>
@@ -109,23 +110,23 @@ const whatsapp = `https://wa.me/${contacto.whatsapp}?text=${encodeURIComponent(`
 
     <Parada index={1}>
       <p class="eyebrow mt-4">Cocina integrada</p>
-      <h2 class={titulo}>Una isla de 2,2 m para cocinar mirando al living</h2>
+      <h2 class={titulo}>Una isla de 2,2&nbsp;m para cocinar mirando al living</h2>
       <p class={cuerpo}>Mesada de cuarzo, anafe de inducción y alacenas hasta el techo. La cocina se abre al living sin perder guardado.</p>
       <dl class="mt-6 grid w-full max-w-md grid-cols-2 gap-4">
         <div class="flex flex-col-reverse gap-1">
           <dt class="text-xs text-hueso/60">Metros lineales de mesada</dt>
-          <dd class="text-3xl font-semibold">5,8 m</dd>
+          <dd class="text-3xl font-semibold">5,8&nbsp;m</dd>
         </div>
         <div class="flex flex-col-reverse gap-1">
           <dt class="text-xs text-hueso/60">Altura libre</dt>
-          <dd class="text-3xl font-semibold">2,70 m</dd>
+          <dd class="text-3xl font-semibold">2,70&nbsp;m</dd>
         </div>
       </dl>
     </Parada>
 
     <Parada index={2}>
       <p class="eyebrow mt-4">Living comedor</p>
-      <h2 class={titulo}>31,4 m² con ventanal de piso a techo al norte</h2>
+      <h2 class={titulo}>31,4&nbsp;m² con ventanal de piso a techo al norte</h2>
       <p class={cuerpo}>Sol de la mañana a la tarde y carpintería con doble vidriado hermético. El comedor entra completo para seis.</p>
       <ul class="mt-6 grid w-full max-w-md grid-cols-2 gap-4">
         <li class="flex flex-col gap-1 rounded-2xl bg-bg/40 p-4 ring-1 ring-hueso/15 backdrop-blur-md">
@@ -142,12 +143,12 @@ const whatsapp = `https://wa.me/${contacto.whatsapp}?text=${encodeURIComponent(`
     <Parada index={3}>
       <p class="eyebrow mt-4">Dormitorio en suite</p>
       <h2 class={titulo}>Separado del living por el baño y el vestidor</h2>
-      <p class={cuerpo}>El dormitorio principal tiene baño propio, placard de 2,4 m y salida directa al balcón. Ningún ruido del living llega a la cama.</p>
+      <p class={cuerpo}>El dormitorio principal tiene baño propio, placard de 2,4&nbsp;m y salida directa al balcón. Ningún ruido del living llega a la cama.</p>
     </Parada>
 
     <Parada index={4}>
       <p class="eyebrow mt-4">Balcón corrido</p>
-      <h2 class={titulo}>9,8 m² de balcón a lo largo de todo el frente</h2>
+      <h2 class={titulo}>9,8&nbsp;m² de balcón a lo largo de todo el frente</h2>
       <p class={cuerpo}>Se sale desde el living y desde el dormitorio. Desde el piso 9 la vista pasa por encima de las terrazas del barrio.</p>
       <div class="mt-6 flex flex-wrap gap-2">
         <a href="#contacto" class="btn btn-primary">Agendar visita al showroom</a>

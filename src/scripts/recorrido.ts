@@ -123,13 +123,15 @@ export function initRecorrido(seccion: HTMLElement, reduceMotion: boolean) {
     return w - (i + 1) + 0.5;
   };
   const cola = tramos.map((_, i) => i);
+  // H.264 donde se pueda (pesa menos y decodifica por hardware); si no, el respaldo VP9.
+  const h264 = document.createElement('video').canPlayType('video/mp4; codecs="avc1.640028"') !== '';
 
   const cargarSiguiente = async () => {
     cola.sort((a, b) => distancia(a) - distancia(b));
     const i = cola.shift();
     if (i === undefined) return;
     const video = tramos[i];
-    const src = video.dataset.src ?? '';
+    const src = (h264 ? video.dataset.src : video.dataset.srcWebm) ?? video.dataset.src ?? '';
     video.preload = 'auto';
 
     // Cada tramo se baja entero (blob) para que buscar fotogramas no dependa de la red.
