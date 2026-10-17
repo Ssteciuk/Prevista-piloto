@@ -41,13 +41,13 @@ export const seo = {
 // (`pnpm recorrido` los genera con estos nombres). `focus` es la parte horizontal del encuadre que se ve en el
 // celular, de 0 (izquierda) a 100 (derecha), porque el vídeo 16:9 se recorta en vertical.
 export const recorrido = {
-  unidad: 'Unidad 9B · 3 ambientes',
+  unidad: 'unidad de planta baja',
   paradas: [
-    { id: 'inicio', lugar: 'Acceso', focus: 45 },
-    { id: 'cocina', lugar: 'Cocina', focus: 30 },
-    { id: 'living', lugar: 'Living comedor', focus: 35 },
-    { id: 'dormitorio', lugar: 'Dormitorio en suite', focus: 70 },
-    { id: 'balcon', lugar: 'Balcón', focus: 40 },
+    { id: 'inicio', lugar: 'Esquina', focus: 45 },
+    { id: 'fachada', lugar: 'Fachada', focus: 62 },
+    { id: 'living-cocina', lugar: 'Living y cocina', focus: 50 },
+    { id: 'comedor', lugar: 'Comedor', focus: 40 },
+    { id: 'living', lugar: 'Living', focus: 35 },
   ].map((parada, i) => ({
     ...parada,
     clip: `/video/tramo-${i + 1}.mp4`,

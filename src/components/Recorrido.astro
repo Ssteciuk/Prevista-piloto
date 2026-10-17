@@ -6,7 +6,6 @@ import { contacto, proyecto, recorrido } from '../data/proyecto';
 const { paradas } = recorrido;
 const titulo = 'mt-4 max-w-xl text-4xl lg:text-5xl';
 const cuerpo = 'mt-4 max-w-md text-base text-hueso/80 lg:text-lg';
-const pill = 'rounded-full bg-bg/40 px-3 py-1 ring-1 ring-hueso/20 backdrop-blur-md';
 const whatsapp = `https://wa.me/${contacto.whatsapp}?text=${encodeURIComponent(`Hola, quiero info de la ${recorrido.unidad} de ${proyecto.nombre}.`)}`;
 ---
 
@@ -88,70 +87,46 @@ const whatsapp = `https://wa.me/${contacto.whatsapp}?text=${encodeURIComponent(`
 
   <!-- Paradas: el texto de cada ambiente. Editá el copy acá; los datos salen de src/data/proyecto.ts. -->
   <div class="relative z-10 -mt-[100lvh]">
+    <!-- Copy escrito solo con lo que se ve en los renders. Los datos reales (m², precios, entrega) los carga el cliente. -->
     <Parada index={0}>
       <h1 class="mt-4">
         <span class="eyebrow block">{proyecto.nombre} · {proyecto.barrio}, {proyecto.ciudad}</span>
         <span class="titulo-hero mt-4 block max-w-[680px] pb-2 text-4xl lg:text-6xl">
-          Recorré tu departamento<br /> antes de que esté terminado
+          Recorré tu casa<br /> antes de que esté terminada
         </span>
       </h1>
       <p class="mt-4 max-w-[680px] text-base text-hueso/80 lg:text-lg">
-        Unidades de 2 a 4 ambientes en pozo, con balcón y amenities. Bajá con el scroll y caminá un 3 ambientes de punta a punta.
+        Unidades en planta baja con entrada propia desde la calle. Bajá con el scroll y entrá a recorrer una.
       </p>
       <div class="mt-6 flex flex-wrap gap-2">
-        <a href="#contacto" class="btn btn-primary">Agendar visita al showroom</a>
+        <a href="#contacto" class="btn btn-primary">Agendar una visita</a>
       </div>
-      <ul class="mt-6 flex flex-wrap gap-2 text-xs text-hueso/80" aria-label="Datos de la obra">
-        <li class={pill}>Entrega {proyecto.entrega.toLowerCase()}</li>
-        <li class={pill}>Obra al {proyecto.avance} %</li>
-        <li class={pill}>{proyecto.unidades} unidades en {proyecto.pisos} pisos</li>
-      </ul>
     </Parada>
 
     <Parada index={1}>
-      <p class="eyebrow mt-4">Cocina integrada</p>
-      <h2 class={titulo}>Una isla de 2,2&nbsp;m para cocinar mirando al living</h2>
-      <p class={cuerpo}>Mesada de cuarzo, anafe de inducción y alacenas hasta el techo. La cocina se abre al living sin perder guardado.</p>
-      <dl class="mt-6 grid w-full max-w-md grid-cols-2 gap-4">
-        <div class="flex flex-col-reverse gap-1">
-          <dt class="text-xs text-hueso/60">Metros lineales de mesada</dt>
-          <dd class="text-3xl font-semibold">5,8&nbsp;m</dd>
-        </div>
-        <div class="flex flex-col-reverse gap-1">
-          <dt class="text-xs text-hueso/60">Altura libre</dt>
-          <dd class="text-3xl font-semibold">2,70&nbsp;m</dd>
-        </div>
-      </dl>
+      <p class="eyebrow mt-4">Fachada</p>
+      <h2 class={titulo}>Cada unidad con su puerta a la calle</h2>
+      <p class={cuerpo}>La planta baja va revestida en madera, con rejas de listones negros que dan privacidad sin cerrar la luz.</p>
     </Parada>
 
     <Parada index={2}>
-      <p class="eyebrow mt-4">Living comedor</p>
-      <h2 class={titulo}>31,4&nbsp;m² con ventanal de piso a techo al norte</h2>
-      <p class={cuerpo}>Sol de la mañana a la tarde y carpintería con doble vidriado hermético. El comedor entra completo para seis.</p>
-      <ul class="mt-6 grid w-full max-w-md grid-cols-2 gap-4">
-        <li class="flex flex-col gap-1 rounded-2xl bg-bg/40 p-4 ring-1 ring-hueso/15 backdrop-blur-md">
-          <Icon name="sun" class="size-6 text-arena" />
-          <span class="text-sm text-hueso/80">Orientación norte, frente</span>
-        </li>
-        <li class="flex flex-col gap-1 rounded-2xl bg-bg/40 p-4 ring-1 ring-hueso/15 backdrop-blur-md">
-          <Icon name="frameCorners" class="size-6 text-arena" />
-          <span class="text-sm text-hueso/80">Ventanal de 8 m corridos</span>
-        </li>
-      </ul>
+      <p class="eyebrow mt-4">Living con cocina integrada</p>
+      <h2 class={titulo}>Un solo ambiente de la entrada a la ventana</h2>
+      <p class={cuerpo}>Living, comedor y cocina en línea, con la luz entrando por el ventanal del fondo.</p>
     </Parada>
 
     <Parada index={3}>
-      <p class="eyebrow mt-4">Dormitorio en suite</p>
-      <h2 class={titulo}>Separado del living por el baño y el vestidor</h2>
-      <p class={cuerpo}>El dormitorio principal tiene baño propio, placard de 2,4&nbsp;m y salida directa al balcón. Ningún ruido del living llega a la cama.</p>
+      <p class="eyebrow mt-4">Comedor y cocina</p>
+      <h2 class={titulo}>Mesa para seis al lado de la cocina</h2>
+      <p class={cuerpo}>Muebles de cocina hasta el techo, heladera y hornos empotrados en la columna de guardado.</p>
     </Parada>
 
     <Parada index={4}>
-      <p class="eyebrow mt-4">Balcón corrido</p>
-      <h2 class={titulo}>9,8&nbsp;m² de balcón a lo largo de todo el frente</h2>
-      <p class={cuerpo}>Se sale desde el living y desde el dormitorio. Desde el piso 9 la vista pasa por encima de las terrazas del barrio.</p>
+      <p class="eyebrow mt-4">Living</p>
+      <h2 class={titulo}>Revestimiento de listones y escalera a la planta alta</h2>
+      <p class={cuerpo}>La pared de madera con luz cenital separa el living de la escalera que sube al primer piso.</p>
       <div class="mt-6 flex flex-wrap gap-2">
-        <a href="#contacto" class="btn btn-primary">Agendar visita al showroom</a>
+        <a href="#contacto" class="btn btn-primary">Agendar una visita</a>
         <a href={whatsapp} class="btn btn-ghost" target="_blank" rel="noopener">
           <Icon name="whatsapp" class="size-5" /> Pedir plano y precio
         </a>
